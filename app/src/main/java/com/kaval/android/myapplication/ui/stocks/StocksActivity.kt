@@ -28,14 +28,18 @@ class StocksActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stcoks)
-        title = "StockTest"
+        title = resources.getString(R.string.app_name)
         lineChart = findViewById<LineChart>(R.id.lineChartView)
         switchStocksButton = findViewById<Button>(R.id.switchStocksButton)
         switchStocksButton.setOnClickListener() {
-           stockViewModel.toggleStockData()
+            stockViewModel.toggleStockData()
         }
         stockViewModel.stocks.observe(this, Observer<List<Stock>> {
-            switchStocksButton.setText(if (stockViewModel.showMonthlyData) "monthly" else "weekly")
+            switchStocksButton.setText(
+                if (stockViewModel.showMonthlyData) resources.getString(R.string.monthly) else resources.getString(
+                    R.string.weekly
+                )
+            )
             updateLineChart()
         })
         stockViewModel.description.observe(this, Observer<String> {
@@ -59,7 +63,7 @@ class StocksActivity : AppCompatActivity() {
 //        lineChart.xAxis.axisMaximum += 0.1f
         lineChart.setTouchEnabled(true)
         lineChart.setPinchZoom(true)
-        lineChart.setNoDataText("No forex yet!")
+        lineChart.setNoDataText(resources.getString(R.string.noDataText))
     }
 
     private fun updateLineChart() {
