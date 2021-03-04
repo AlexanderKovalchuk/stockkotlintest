@@ -32,9 +32,10 @@ class StocksActivity : AppCompatActivity() {
         lineChart = findViewById<LineChart>(R.id.lineChartView)
         switchStocksButton = findViewById<Button>(R.id.switchStocksButton)
         switchStocksButton.setOnClickListener() {
-            stockViewModel.toggleStockData()
+           stockViewModel.toggleStockData()
         }
         stockViewModel.stocks.observe(this, Observer<List<Stock>> {
+            switchStocksButton.setText(if (stockViewModel.showMonthlyData) "monthly" else "weekly")
             updateLineChart()
         })
         stockViewModel.description.observe(this, Observer<String> {

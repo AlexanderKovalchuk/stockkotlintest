@@ -11,10 +11,7 @@ class StockViewModel(private val stockRepository: StockRepository) : ViewModel()
     val description: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
-    var dataLoading: Boolean = false;
     var showMonthlyData: Boolean = false;
-
-//    lateinit var stocks: List<Stock>
 
     val stocks: MutableLiveData<List<Stock>> by lazy {
         MutableLiveData<List<Stock>>()
@@ -27,18 +24,14 @@ class StockViewModel(private val stockRepository: StockRepository) : ViewModel()
 
 
     fun loadWeeklyStocks() {
-        dataLoading = true
         stocks.setValue(stockRepository.getWeekltyStockData())
         updateDescription()
-        dataLoading = false
         showMonthlyData = false
     }
 
     fun loadMonthlyStocks() {
-        dataLoading = true
         stocks.setValue(stockRepository.getMonthlyStockData())
         updateDescription()
-        dataLoading = false
         showMonthlyData = true
     }
 
