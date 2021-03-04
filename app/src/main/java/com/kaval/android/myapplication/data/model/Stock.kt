@@ -9,7 +9,11 @@ data class Stock(
     val lows: List<Float>,
     val volumes: List<Long>
 ) {
-    fun getClosuresMap(): Map<Long, Float>{
+
+    /**
+     * This method creates new Map with timestamp as key and performance of stock based on closure values
+     */
+    fun getClosuresTimeMap(): Map<Long, Float>{
         val firstPrice = closures.first()
        return timestamps.zip(closures.map { value -> (value-firstPrice)*100/firstPrice }).toMap()
     }

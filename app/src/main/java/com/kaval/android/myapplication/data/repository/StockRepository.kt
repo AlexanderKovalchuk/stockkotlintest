@@ -1,4 +1,4 @@
-package com.kaval.android.myapplication.data.repositoriy
+package com.kaval.android.myapplication.data.repository
 
 import com.kaval.android.myapplication.data.api.ApiHelper
 import com.kaval.android.myapplication.data.model.Stock
