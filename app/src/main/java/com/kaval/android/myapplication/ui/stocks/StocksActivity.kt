@@ -40,10 +40,10 @@ class StocksActivity : AppCompatActivity() {
                     R.string.weekly
                 )
             )
-            updateLineChart()
+            updateLineChart(stockViewModel.stocks.value!!)
         })
         stockViewModel.description.observe(this, Observer<String> {
-            updateDescription()
+            updateDescription(stockViewModel.description.value!!)
         })
         initializeUI()
     }
@@ -59,16 +59,15 @@ class StocksActivity : AppCompatActivity() {
         lineChart.xAxis.labelRotationAngle = 0f
         lineChart.xAxis.labelCount = 5
         lineChart.xAxis.isEnabled = false
-        lineChart.axisRight.isEnabled = false
-//        lineChart.xAxis.axisMaximum += 0.1f
+        lineChart.axisRight.isEnabled = false 
         lineChart.setTouchEnabled(true)
         lineChart.setPinchZoom(true)
         lineChart.setNoDataText(resources.getString(R.string.noDataText))
     }
 
-    private fun updateLineChart() {
+    private fun updateLineChart(stocks: List<Stock>) {
         val lines = arrayListOf<LineDataSet>()
-        for (stock in stockViewModel.stocks.value!!) {
+        for (stock in stocks) {
             val entries = ArrayList<Entry>()
             entries.addAll(
                 stock.getClosuresMap().map { it -> Entry((it.key.toFloat()), it.value, it.key) })
@@ -83,8 +82,8 @@ class StocksActivity : AppCompatActivity() {
         lineChart.invalidate()
     }
 
-    private fun updateDescription() {
-        lineChart.description.text = stockViewModel.description.value
+    private fun updateDescription(text: String) {
+        lineChart.description.text = text
         lineChart.invalidate()
     }
 
